@@ -1,1 +1,107 @@
-<p>service works!</p>
+<div id="wrapper">
+    <!-- content-holder -->
+    <div class="content-holder">
+        <!-- column-image  -->
+        <div class="column-image">
+            <div class="bg"  data-bg="assets/photographer/images/bg/4.jpg"></div>
+            <div class="overlay"></div>
+            <div class="column-title">
+                <h2>Servicios fotográficos</h2>
+                <h3>A continuación les presento mis servicios fotográficos, espero que les resulte útil.</h3>
+            </div>
+            <div class="ci_dec"><span></span></div>
+        </div>
+        <!-- column-image end  -->
+        <!-- column-wrapper -->
+        <div class="column-wrapper">
+            <!--section  -->
+            <section id="sec1">
+                <div class="container small-container">
+                    <div class="blog-opt">
+                        <div class="blog-search-wrap custom-form">
+                            <input name="se" id="se" type="text" class="search" placeholder="Search..." value="">
+                            <button><i class="far fa-search"></i></button>
+                        </div>
+                        <!-- filter category    -->
+                        <div class="category-filter blog-btn-filter">
+                            <div class="blog-btn">Categories - Tags </div>
+                            <div class="blog-filter-wrap">
+                                <div class="blog-filter-wrap_item" data-bfgt="Categories">
+                                    <ul>
+                                        <li><a >Interior</a></li>
+                                        <li><a >Nature</a></li>
+                                        <li><a >Comercial</a></li>
+                                        <li><a >Travel</a></li>
+                                    </ul>
+                                </div>
+                                <div class="blog-filter-wrap_item" data-bfgt="Tags">
+                                    <ul>
+                                        <li><a >Blog</a></li>
+                                        <li><a >Photography</a></li>
+                                        <li><a >Portfolio</a></li>
+                                        <li><a >Tag</a></li>
+                                        <li><a >Video</a></li>
+                                    </ul>
+                                </div>
+                                <div class="blog-filter-wrap_title"></div>
+                            </div>
+                        </div>
+                        <!-- filter category end  --> 	
+                    </div>
+                    <div class="post-items"  *ngFor="let item of services">
+                        <!-- post-item-->
+                        <div class="post-item">
+                            <div class="post-item_wrap">
+                                <div class="post-item_media">
+                                    <a >
+                                    <img src="{{item.files[0]}}" alt="">
+                                    </a>
+                                </div>
+                                <div class="post-item_content">
+                                    <h3><a >{{item.name}}</a></h3>
+                                    <p style="text-align: justify;">{{item.description}}</p>
+                                    <a  class="single-btn"><span>Solicitar</span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- post-item end-->
+                        									
+                    </div>
+                    <!--pagination-->   
+                    <!-- <div class="pagination">
+                        <div class="pr-bg pr-bg-white"></div>
+                        <a  class="prevposts-link"><i class="fal fa-long-arrow-left"></i></a>
+                        <a >01</a>
+                        <a  class="current-page">02</a>
+                        <a >03</a>
+                        <a >04</a>
+                        <a  class="nextposts-link"><i class="fal fa-long-arrow-right"></i></a>
+                    </div> -->
+                    <!--pagination end-->				
+                </div>
+            </section>
+            <!--section end  -->
+            <div class="order-wrap">
+                <div class="container small-container">
+                    <h4>¿Quieres solicitar un servicio?</h4>
+                </div>
+                <a (click)="global.setRoute('contact')" class="order_btn">Espero tu solicitud</a>
+            </div>
+        </div>
+        <!-- column-wrapper -->
+        <!-- fixed-bottom-container -->
+        <div class="fixed-bottom-container">
+            <div class="scroll-down-wrap">
+                <div class="mousey">
+                    <div class="scroller"></div>
+                </div>
+            </div>
+            <a (click)="global.setRoute('home')" class="bth_btn hbn_vis"><i class="fal fa-home-lg-alt"></i><strong>Volver a Inicio</strong></a>
+            <div class="progress-bar-wrap">
+                <div class="progress-bar color-bg"></div>
+            </div>
+        </div>
+        <!-- fixed-bottom-container end-->
+    </div>
+    <!-- content-holder end -->
+</div>
