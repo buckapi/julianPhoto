@@ -1,1 +1,73 @@
-<p>gallery works!</p>
+<div id="wrapper">
+    <!-- content-holder -->
+    <div class="content-holder" data-pagetitle="About Us">
+        <!-- column-image  -->
+        <div class="column-image">
+            <div class="bg"  data-bg="images/bg/13.jpg"></div>
+            <div class="overlay"></div>
+            <div class="column-title">
+                <h2>Galeria de Trabajo</h2>
+                <h3>En esta sección puedes ver algunos de mis trabajos.</h3>
+            </div>
+        </div>
+        <!-- column-image end  -->
+        <!-- column-wrapper -->
+        <div class="column-wrapper">
+            <div class="inline-filters-wrap">
+                <div class="mob_filter-btn">Filtros</div>
+                <div class="gallery-filters">
+                    <a href="#" class="gallery-filter  gallery-filter-active" data-filter="*">All Cases</a>
+                    <a href="#" class="gallery-filter" data-filter=".nature"> Nature</a>
+                    <a href="#" class="gallery-filter" data-filter=".models">Models</a>
+                    <a href="#" class="gallery-filter" data-filter=".couples"> Couples</a>
+                    <a href="#" class="gallery-filter" data-filter=".outdoor"> Outdoor</a>
+                </div>
+                <div class="inline-folio-counter">
+                    <div class="num-album"></div>
+                    <div class=" all-album"></div>
+                </div>
+            </div>
+            <!-- portfolio start -->
+            <div class="row">
+            <div class="gallery-items  col-6 big-padding lightgallery gi_left_al">
+                <!-- gallery-item-->
+                <div class="gallery-item" *ngFor="let gallery of gallery">
+                    <div class="grid-item-holder  hov_zoom" >
+                        <img  src="{{gallery.files[0]}}"    alt="">                                  
+                        <div class="grid-item-info">
+                            <h3><a  class="ajax">{{gallery.name}}</a></h3>
+                        </div>
+                        <div class="pr_num"></div>
+                        <a href="{{gallery.files[0]}}" class="grid-media-zoom   image-popup"><i class="far fa-search"></i></a>
+                    </div>
+                </div>
+                <!-- gallery-item end-->
+                   
+                <!-- gallery-item end-->   
+            </div>
+            </div>
+            <!-- portfolio end --> 
+            <div class="order-wrap">
+                <div class="container small-container">
+                    <h4>¿Quieres ordenar tu proyecto?</h4>
+                </div>
+                <a (click)="global.setRoute('contact')" class="order_btn">Contactame</a>
+            </div>
+        </div>
+        <!-- column-wrapper -->
+        <!-- fixed-bottom-container -->
+        <div class="fixed-bottom-container">
+            <div class="scroll-down-wrap">
+                <div class="mousey">
+                    <div class="scroller"></div>
+                </div>
+            </div>
+            <a (click)="global.setRoute('home')" class="bth_btn hbn_vis"><i class="fal fa-home-lg-alt"></i><strong>Ir a Inicio</strong></a>
+            <div class="progress-bar-wrap">
+                <div class="progress-bar color-bg"></div>
+            </div>
+        </div>
+        <!-- fixed-bottom-container end-->
+    </div>
+    <!-- content-holder end -->
+</div>
