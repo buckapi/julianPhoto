@@ -19,23 +19,19 @@
           <!--  navigation -->
           <div class="nav-holder main-menu">
             <nav>
+                           
               <ul>
-                <li>
-                  <a  (click)="global.setRoute('home'); $event.preventDefault()" class="act-link">Inicio</a>
-                </li>
-                <li>
-                  <a  (click)="global.setRoute('gallery'); $event.preventDefault()" style="cursor: pointer;">Galeria</a>
-                </li>
-                <li>
-                  <a  (click)="global.setRoute('service'); $event.preventDefault()" style="cursor: pointer;">Servicios</a>
-                </li>
-                <li>
-                  <a  (click)="global.setRoute('about'); $event.preventDefault()" style="cursor: pointer;">Sobre mi</a>
-                </li>
-                <li>
-                  <a  (click)="global.setRoute('contact'); $event.preventDefault()" style="cursor: pointer;">Contactos</a>
-                </li>
+                <ng-container *ngFor="let item of menuItems">
+                  <li *ngIf="item.visible()">
+                      <a (click)="global.activeRoute = item.route; " style="cursor: pointer;">
+                          {{item.label}}
+                      </a>
+                  </li>
+              </ng-container>
+               
+
               </ul>
+             
             </nav>
           </div>
           <!-- navigation  end -->  						
@@ -72,7 +68,7 @@
               <div class="sb-widget  fl-wrap">
                   <div class="categories_widget-wrap" *ngFor="let gallery of gallery">
                       <!-- categories_widget_item-->
-                      <a class="categories_widget_item" (click)="global.setRoute('gallery')">
+                      <a class="categories_widget_item" (click)="global.activeRoute='gallery';">
                           <div class="categories_widget_item_img">
                               <img src="{{gallery.files[0]}}" class="respimg" alt="">
                           </div>

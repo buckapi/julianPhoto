@@ -12,11 +12,11 @@
                         <div class="swiper-slide hov_zoom" *ngFor="let item of services">
                             <div class="anim-fw" >
                                 <img src="{{item.files[0]}}" alt="">
-                                <a href="{{item.files[0]}}" class="box-media-zoom   popup-image"><i class="fal fa-search"></i></a>
+                                <a href="{{item.files[0]}}" class="box-media-zoom   popup-image"><i class="fal fa-search" (click)="global.setRoute('service')"></i></a>
                                 <div class="overlay"></div>
                                 <div class="thumb-info_main">
                                     <h3><a >{{item.name}}</a></h3>
-                                    <p>...</p>
+                                    <p>.</p>
                                     <a (click)="global.setRoute('service')" class=" fs-slider-item_btn">Ver más</a>
                                 </div>
                                 <div class="sc_num">1</div>
