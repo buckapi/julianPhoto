@@ -3,7 +3,7 @@
   <header class="main-header">
       <div class="main-inner">
           <!--logo-->
-          <a href="index.html" class="logo-holder"><img src="images/logo.png" alt=""></a>
+          <a (click)="global.setRoute('home')" class="logo-holder"><img src="images/logo.png" alt=""></a>
           <!--logo end-->
           <!-- sb-button-->
           <div class="sb-button c_sb"><span></span></div>
@@ -18,28 +18,25 @@
           <!-- share btn end-->	
           <!--  navigation -->
           <div class="nav-holder main-menu">
-              <nav>
-                  <ul>
-                      <li>
-                          <a (click)="global.activeRoute = 'home'" class="act-link">Inicio </a>
-                         
-                      </li>
-                      <li>
-                          <a (click)="global.activeRoute = 'gallery'">Galeria </a>
-                         
-                      </li>
-                      
-                      <li>
-                        <a (click)="global.activeRoute = 'service'">Servicios</a>
-                      </li>
-                      <li>
-                        <a (click)="global.activeRoute = 'about'">Sobre mi</a>
-                      </li>
-                      <li>
-                        <a (click)="global.activeRoute = 'contact'">Contactos</a>
-                      </li>
-                  </ul>
-              </nav>
+            <nav>
+              <ul>
+                <li>
+                  <a  (click)="global.setRoute('home'); $event.preventDefault()" class="act-link">Inicio</a>
+                </li>
+                <li>
+                  <a  (click)="global.setRoute('gallery'); $event.preventDefault()" style="cursor: pointer;">Galeria</a>
+                </li>
+                <li>
+                  <a  (click)="global.setRoute('service'); $event.preventDefault()" style="cursor: pointer;">Servicios</a>
+                </li>
+                <li>
+                  <a  (click)="global.setRoute('about'); $event.preventDefault()" style="cursor: pointer;">Sobre mi</a>
+                </li>
+                <li>
+                  <a  (click)="global.setRoute('contact'); $event.preventDefault()" style="cursor: pointer;">Contactos</a>
+                </li>
+              </ul>
+            </nav>
           </div>
           <!-- navigation  end -->  						
           <!-- share-wrapper-->  
@@ -71,39 +68,15 @@
       <div class="sidebar-wrap-container">
           <!-- sb-widget-wrap-->
           <div class="sb-widget-wrap fl-wrap">
-              <h3>Latest Works</h3>
+              <h3>Julian Pilcue - Fotógrafo</h3>
               <div class="sb-widget  fl-wrap">
-                  <div class="categories_widget-wrap">
+                  <div class="categories_widget-wrap" *ngFor="let gallery of gallery">
                       <!-- categories_widget_item-->
-                      <a class="categories_widget_item" href="portfolio-single.html">
+                      <a class="categories_widget_item" (click)="global.setRoute('gallery')">
                           <div class="categories_widget_item_img">
-                              <img src="images/folio/14.jpg" class="respimg" alt="">
+                              <img src="{{gallery.files[0]}}" class="respimg" alt="">
                           </div>
-                          <span class="categories_widget_title">Crazy, Cute Couple</span>
-                      </a>
-                      <!-- categories_widget_item end-->
-                      <!-- categories_widget_item-->
-                      <a class="categories_widget_item" href="portfolio-single.html">
-                          <div class="categories_widget_item_img">
-                              <img src="images/folio/15.jpg" class="respimg" alt="">
-                          </div>
-                          <span class="categories_widget_title">Alone on Nature</span>
-                      </a>
-                      <!-- categories_widget_item end-->							
-                      <!-- categories_widget_item-->
-                      <a class="categories_widget_item" href="portfolio-single.html">
-                          <div class="categories_widget_item_img">
-                              <img src="images/folio/16.jpg" class="respimg" alt="">
-                          </div>
-                          <span class="categories_widget_title">Living in my dream</span>
-                      </a>
-                      <!-- categories_widget_item end-->
-                      <!-- categories_widget_item-->
-                      <a class="categories_widget_item" href="portfolio-single.html">
-                          <div class="categories_widget_item_img">
-                              <img src="images/folio/17.jpg" class="respimg" alt="">
-                          </div>
-                          <span class="categories_widget_title">Sunny Side Up</span>
+                          <span class="categories_widget_title">{{gallery.name}}</span>
                       </a>
                       <!-- categories_widget_item end-->						
                   </div>
@@ -112,34 +85,21 @@
           <!-- sb-widget-wrap end-->					
           <!-- sb-widget-wrap-->
           <div class="sb-widget-wrap fl-wrap">
-              <h3>Subscribe To  Newsletter</h3>
+              <h3>Escribeme si tienes alguna duda</h3>
               <div class="sb-widget  fl-wrap">
-                  <p>Lorem ipsum dosectetur adipisicing elit, sed do.Lorem ipsum dolor sit amet,  </p>
+                  <p>Servicios de fotografía, edición y retouching de imágenes. </p>
                   <div class="subcribe-form fl-wrap">
-                      <form id="subscribe">
-                          <input class="enteremail" name="email" id="subscribe-email" placeholder="Your Email" spellcheck="false" type="text">
-                          <button type="submit" id="subscribe-button" class="subscribe-button">Submit</button>
-                          <label for="subscribe-email" class="subscribe-message"></label>
-                      </form>
+                    <a 
+                    href="https://wa.me/972526767187" 
+                    target="_blank" 
+                    class="whatsapp-btn" 
+                    style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:#25D366;color:#fff;border-radius:4px;text-decoration:none;font-weight:600;margin-top:12px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:24px;height:24px;">
+                    Contáctame por WhatsApp
+                  </a>
                   </div>
               </div>
           </div>
-          <!-- sb-widget-wrap end-->
-          <!-- sb-widget-wrap-->
-          <div class="sb-widget-wrap fl-wrap">
-              <h3>Social Links</h3>
-              <div class="sb-widget    fl-wrap">
-                  <div class="sidebar-social fl-wrap">
-                      <ul>
-                          <li><a href="index.html#" target="_blank">Fb</a></li>
-                          <li><a href="index.html#" target="_blank">Tw</a></li>
-                          <li><a href="index.html#" target="_blank">Ins</a></li>
-                          <li><a href="index.html#" target="_blank">Tic</a></li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
-          <!-- sb-widget-wrap end-->
       </div>
   </div>
   <div class="sb-overlay"></div>

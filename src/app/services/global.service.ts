@@ -6,6 +6,7 @@ import PocketBase from 'pocketbase';
 })
 export class GlobalService {
   activeRoute: string = 'home';
+  menuOpen: boolean = false;
   pb = new PocketBase('https://db.buckapi.lat:8055');
 
   private servicesSubject = new BehaviorSubject<any[]>([]);
@@ -19,7 +20,10 @@ export class GlobalService {
     this.initGalleryRealtime();
   }
   setRoute(route: string) {
+    console.log('Navegando a:', route); // <-- agrega esto
     this.activeRoute = route;
+    this.menuOpen = false; // Asegúrate de cerrar el menú móvil
+
   }
   async initServicesRealtime() {
     // Fetch inicial
