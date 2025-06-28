@@ -13,39 +13,39 @@
         <!-- column-image end  -->
         <!-- column-wrapper -->
         <div class="column-wrapper">
-            <div class="inline-filters-wrap">
+           <div class="inline-filters-wrap">
                 <div class="mob_filter-btn">Filtros</div>
                 <div class="gallery-filters">
-                    <a href="#" class="gallery-filter  gallery-filter-active" data-filter="*">All Cases</a>
-                    <a href="#" class="gallery-filter" data-filter=".nature"> Nature</a>
-                    <a href="#" class="gallery-filter" data-filter=".models">Models</a>
-                    <a href="#" class="gallery-filter" data-filter=".couples"> Couples</a>
-                    <a href="#" class="gallery-filter" data-filter=".outdoor"> Outdoor</a>
+                    <a href="#" class="gallery-filter  gallery-filter-active" data-filter="*"></a>
+                    <a href="#" class="gallery-filter" data-filter=".nature"> </a>
+                    <a href="#" class="gallery-filter" data-filter=".models"> </a>
+                    <a href="#" class="gallery-filter" data-filter=".couples"> </a>
+                    <a href="#" class="gallery-filter" data-filter=".outdoor"> </a>
                 </div>
                 <div class="inline-folio-counter">
                     <div class="num-album"></div>
                     <div class=" all-album"></div>
                 </div>
-            </div>
+            </div> 
             <!-- portfolio start -->
             <div class="row">
             <div class="gallery-items big-padding lightgallery gi_left_al">
-                <!-- gallery-item-->
-                <div class="gallery-item" *ngFor="let gallery of gallery">
+                
+                <div class="gallery-item" *ngFor="let gallery of gallery; let i = index">
                     <div class="grid-item-holder  hov_zoom" >
-                        <img  src="{{gallery.files[0]}}"    alt="">                                  
+                        <img src="{{gallery.files[0]}}" alt="" (click)="open(i)" style="cursor:pointer;">
                         <div class="grid-item-info">
-                            <h3><a  class="ajax">{{gallery.name}}</a></h3>
+                            <h3><a class="ajax">{{gallery.name}}</a></h3>
                         </div>
                         <div class="pr_num"></div>
-                        <a href="{{gallery.files[0]}}" class="grid-media-zoom   image-popup"><i class="far fa-search"></i></a>
+                        <a (click)="open(i)" class="grid-media-zoom image-popup" style="cursor:pointer;"><i class="far fa-search"></i></a>
                     </div>
                 </div>
-                <!-- gallery-item end-->
-                   
-                <!-- gallery-item end-->   
+       
             </div>
+           
             </div>
+            
             <!-- portfolio end --> 
             <div class="order-wrap">
                 <div class="container small-container">
