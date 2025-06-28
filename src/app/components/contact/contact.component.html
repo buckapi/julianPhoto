@@ -68,14 +68,14 @@
                             <p> Recuerda que todo proyecto requiere tiempo, por favor sé paciente. </p>
                             <div id="contact-form" class="fl-wrap">
                                 <div id="message"></div>
-                                <form  class="custom-form" name="contactform" id="contactform">
-                                    <fieldset>
-                                        <input type="text" name="name" id="name" placeholder="Tu nombre *" value="">
-                                        <input type="text"  name="email" id="email" placeholder="Tu email *" value="">
-                                        <textarea name="comments"  id="comments" cols="40" rows="3" placeholder="Tu mensaje:"></textarea>
-                                        <button class="btn float-btn flat-btn color-bg" id="submit">Enviar </button>
-                                    </fieldset>
-                                </form>
+                                <form class="custom-form" name="contactform" id="contactform" (ngSubmit)="sendToWhatsApp()" #form="ngForm">
+    <fieldset>
+        <input type="text" name="name" id="name" placeholder="Tu nombre *" [(ngModel)]="contact.name" required>
+        <input type="text" name="email" id="email" placeholder="Tu email *" [(ngModel)]="contact.email" required>
+        <textarea name="comments" id="comments" cols="40" rows="3" placeholder="Tu mensaje:" [(ngModel)]="contact.comments" required></textarea>
+        <button type="submit" class="btn float-btn flat-btn color-bg" id="submit">Enviar</button>
+    </fieldset>
+</form>
                             </div>
                         </div>
                     </div>

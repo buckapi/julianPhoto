@@ -21,13 +21,13 @@
                     
                     <div class="blog-opt">
                         <div class="blog-search-wrap custom-form">
-                            <input name="se" id="se" type="text" class="search" placeholder="Buscar..." value="">
-                            <button><i class="far fa-search"></i></button>
+                            <input name="se" id="se" type="text" class="search" placeholder="Buscar servicio..." [(ngModel)]="searchTerm">
+                            <button type="button"><i class="far fa-search"></i></button>
                         </div>
                         <!-- filter category    -->
                          <div class="category-filter blog-btn-filter">
                             <div class="blog-btn">Categorias - Tags </div>
-                            <div class="blog-filter-wrap">
+                            <!-- <div class="blog-filter-wrap">
                                 <div class="blog-filter-wrap_item" data-bfgt="Categories">
                                     <ul>
                                         <li><a >Interior</a></li>
@@ -46,7 +46,7 @@
                                     </ul>
                                 </div>
                                 <div class="blog-filter-wrap_title"></div>
-                            </div>
+                            </div> -->
                         </div> 
                         <!-- filter category end  --> 	
                     </div>
@@ -55,18 +55,18 @@
                             <!-- serv-wrap-->
                             <div class="serv-wrap fl-wrap">
                                 <!-- serv-item -->
-                                <div class="serv-item" *ngFor="let item of services">
+                                <div class="serv-item" *ngFor="let item of filteredServices" style="padding-bottom: 25px;">
                                     <div class="serv-media">
                                         <img src="{{item.files[0]}}" alt="">
                                     </div>
                                     <div class="serv-text">
                                         <h4><a >{{item.name}}</a></h4>
                                         <p style="text-align: justify;"> {{item.description}}</p>
-                                        <ul>
+                                        <ul style="padding-bottom: 25px;">
                                             <li><a >{{item.name}}</a></li>
-                                           
                                         </ul>
                                         <div class="serv-price">Precio :<span> {{item.price}}</span></div>
+                                        <button (click)="sendToWhatsApp(item)" class="btn fl-btn " style="cursor: pointer; border-radius: 10px;">Solicitar</button>
                                     </div>
                                 </div>
                                 <!-- serv-item end -->
