@@ -3,7 +3,7 @@
     <div class="content-holder">
         <!-- column-image  -->
         <div class="column-image">
-            <div class="bg"  data-bg="images/bg/13.jpg"></div>
+            <div class="bg"  data-bg="images/bg/12.jpg"></div>
             <div class="overlay"></div>
             <div class="column-title">
                 <h2>Contáctame</h2>
@@ -73,7 +73,8 @@
         <input type="text" name="name" id="name" placeholder="Tu nombre *" [(ngModel)]="contact.name" required>
         <input type="text" name="email" id="email" placeholder="Tu email *" [(ngModel)]="contact.email" required>
         <textarea name="comments" id="comments" cols="40" rows="3" placeholder="Tu mensaje:" [(ngModel)]="contact.comments" required></textarea>
-        <button type="submit" class="btn float-btn flat-btn color-bg" id="submit">Enviar</button>
+        <button type="submit" class="btn float-btn flat-btn color-bg" id="submit" [disabled]="sending">{{ sending ? 'Enviando...' : 'Enviar' }}</button>
+        <p *ngIf="submitError" role="alert">{{ submitError }}</p>
     </fieldset>
 </form>
                             </div>

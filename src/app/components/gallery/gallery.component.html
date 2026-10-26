@@ -3,7 +3,7 @@
     <div class="content-holder" data-pagetitle="About Us">
         <!-- column-image  -->
         <div class="column-image">
-            <div class="bg"  data-bg="images/bg/13.jpg"></div>
+            <div class="bg"  data-bg="images/bg/12.jpg"></div>
             <div class="overlay"></div>
             <div class="column-title">
                 <h2>Galeria de Trabajo</h2>
@@ -33,7 +33,7 @@
                 
                 <div class="gallery-item" *ngFor="let gallery of gallery; let i = index">
                     <div class="grid-item-holder  hov_zoom" >
-                        <img src="{{gallery.files[0]}}" alt="" (click)="open(i)" style="cursor:pointer;">
+                        <img [src]="gallery.files?.[0]" alt="" (click)="open(i)" style="cursor:pointer;">
                         <div class="grid-item-info">
                             <h3><a class="ajax">{{gallery.name}}</a></h3>
                         </div>

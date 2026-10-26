@@ -1,4 +1,5 @@
-<div id="main">
+<router-outlet *ngIf="isAdminRoute"></router-outlet>
+<div id="main" *ngIf="!isAdminRoute">
   <!--  header main-header  -->
   <header class="main-header">
       <div class="main-inner">
@@ -70,7 +71,7 @@
                       <!-- categories_widget_item-->
                       <a class="categories_widget_item" (click)="global.activeRoute='gallery';">
                           <div class="categories_widget_item_img">
-                              <img src="{{gallery.files[0]}}" class="respimg" alt="">
+                              <img [src]="gallery.files?.[0]" class="respimg" alt="">
                           </div>
                           <span class="categories_widget_title">{{gallery.name}}</span>
                       </a>
@@ -100,7 +101,6 @@
   </div>
   <div class="sb-overlay"></div>
   <!-- sidebar end-->	
-   <router-outlet></router-outlet>		
   <app-service [hidden]="global.activeRoute!=='service'"></app-service>
   <app-about [hidden]="global.activeRoute!=='about'"></app-about>
   <app-contact [hidden]="global.activeRoute!=='contact'"></app-contact>

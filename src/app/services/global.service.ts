@@ -1,65 +1,95 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
-import PocketBase from 'pocketbase';
-@Injectable({
-  providedIn: 'root'
-})
-export class GlobalService {
-  activeRoute: string = 'home';
-  menuOpen: boolean = false;
-  pb = new PocketBase('https://db.buckapi.lat:8055');
+import PocketBase, { RecordModel } from 'pocketbase';
 
-  private servicesSubject = new BehaviorSubject<any[]>([]);
-  services$ = this.servicesSubject.asObservable();
+export interface ContentRecord extends RecordModel {
+  title?: string;
+  name?: string;
+  cover?: string;
+  images?: string[] | string;
+  image?: string;
+  files?: string[];
+}
 
-  private gallerySubject = new BehaviorSubject<any[]>([]);
-  gallery$ = this.gallerySubject.asObservable();
+export interface ContactMessagePayload {
+  name: string;
+  email: string;
+  message: string;
+}
 
-  constructor() { 
-    this.initServicesRealtime();
-    this.initGalleryRealtime();
+@Injectable({ providedIn: 'root' })
+export class GlobalService implements OnDestroy {
+  activeRoute = 'home';
+  menuOpen = false;
+  readonly pb = new PocketBase('http://127.0.0.1:8091');
+
+  private readonly servicesSubject = new BehaviorSubject<ContentRecord[]>([]);
+  readonly services$ = this.servicesSubject.asObservable();
+  private readonly gallerySubject = new BehaviorSubject<ContentRecord[]>([]);
+  readonly gallery$ = this.gallerySubject.asObservable();
+
+  constructor(@Inject(PLATFORM_ID) private readonly platformId: object) {
+    // Do not request a local API while Angular is prerendering on the server.
+    if (isPlatformBrowser(this.platformId)) {
+      void this.loadCollection('services', this.servicesSubject);
+      void this.loadCollection('gallery', this.gallerySubject);
+    }
   }
+
   setRoute(route: string) {
-    console.log('Navegando a:', route); // <-- agrega esto
     this.activeRoute = route;
-    this.menuOpen = false; // Asegúrate de cerrar el menú móvil
-
-  }
-  async initServicesRealtime() {
-    // Fetch inicial
-    const result = await this.pb.collection('services').getFullList();
-    this.servicesSubject.next(result);
-
-    // Suscripción realtime
-    this.pb.collection('services').subscribe('*', (e: any) => {
-      let current = this.servicesSubject.getValue();
-      if (e.action === 'create') {
-        current = [...current, e.record];
-      } else if (e.action === 'update') {
-        current = current.map((c: any) => c.id === e.record.id ? e.record : c);
-      } else if (e.action === 'delete') {
-        current = current.filter((c: any) => c.id !== e.record.id);
-      }
-      this.servicesSubject.next(current);
-    });
+    this.menuOpen = false;
   }
 
-  async initGalleryRealtime() {
-    // Fetch inicial
-    const result = await this.pb.collection('gallery').getFullList();
-    this.gallerySubject.next(result);
+  private async loadCollection(
+    collection: 'services' | 'gallery',
+    subject: BehaviorSubject<ContentRecord[]>,
+  ): Promise<void> {
+    try {
+      const records = await this.pb.collection(collection).getFullList<ContentRecord>({ sort: 'sort_order,-created' });
+      subject.next(records.map((record) => this.withFileUrls(collection, record)));
 
-    // Suscripción realtime
-    this.pb.collection('gallery').subscribe('*', (e: any) => {
-      let current = this.gallerySubject.getValue();
-      if (e.action === 'create') {
-        current = [...current, e.record];
-      } else if (e.action === 'update') {
-        current = current.map((c: any) => c.id === e.record.id ? e.record : c);
-      } else if (e.action === 'delete') {
-        current = current.filter((c: any) => c.id !== e.record.id);
-      }
-      this.gallerySubject.next(current);
-    });
+      await this.pb.collection(collection).subscribe('*', (event) => {
+        const record = this.withFileUrls(collection, event.record as ContentRecord);
+        const current = subject.getValue();
+        const next = event.action === 'create'
+          ? [...current, record]
+          : event.action === 'update'
+            ? current.map((item) => item.id === record.id ? record : item)
+            : current.filter((item) => item.id !== record.id);
+        subject.next(next);
+      });
+    } catch (error) {
+      // Keep the existing UI usable if PocketBase is unavailable or blocked by an extension.
+      console.error(`No fue posible cargar ${collection} desde PocketBase.`, error);
+    }
+  }
+
+  async submitContactMessage(payload: ContactMessagePayload): Promise<void> {
+    await this.pb.collection('contact_messages').create({ ...payload, status: 'new' });
+  }
+
+  private withFileUrls(collection: 'services' | 'gallery', record: ContentRecord): ContentRecord {
+    const fileNames = collection === 'services'
+      ? [record.cover, ...this.asArray(record.images)]
+      : this.asArray(record.image);
+
+    return {
+      ...record,
+      // Components previously displayed `name`; this preserves their visual markup.
+      name: record.title ?? record.name ?? '',
+      files: fileNames.filter((file): file is string => Boolean(file))
+        .map((file) => this.pb.files.getURL(record, file)),
+    };
+  }
+
+  private asArray(value?: string | string[]): string[] {
+    return Array.isArray(value) ? value : value ? [value] : [];
+  }
+
+  ngOnDestroy(): void {
+    void this.pb.collection('services').unsubscribe('*');
+    void this.pb.collection('gallery').unsubscribe('*');
   }
 }

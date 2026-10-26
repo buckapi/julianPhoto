@@ -5,14 +5,14 @@
         <!-- hero-carousel-wrapper -->
         <div class="hero-carousel-wrapper hfs_wrap">
             <div class="fs-slider fw-carousel2 lightgallery fw-carousel_hight full-height fs-anim-t" data-mousecontrol2="true">
-                <div class="swiper-container  " >
+                <div class="swiper-container home-swiper" data-angular-swiper>
                     <div class="swiper-wrapper" >
                         
                         <!-- swiper-slide-->
                         <div class="swiper-slide hov_zoom" *ngFor="let item of services">
                             <div class="anim-fw" >
-                                <img src="{{item.files[0]}}" alt="">
-                                <a href="{{item.files[0]}}" class="box-media-zoom   popup-image"><i class="fal fa-search" (click)="global.setRoute('service')"></i></a>
+                                <img [src]="item.files?.[0]" alt="">
+                                <a [href]="item.files?.[0]" class="box-media-zoom   popup-image"><i class="fal fa-search" (click)="global.setRoute('service')"></i></a>
                                 <div class="overlay"></div>
                                 <div class="thumb-info_main">
                                     <h3><a >{{item.name}}</a></h3>

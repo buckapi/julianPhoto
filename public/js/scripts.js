@@ -400,7 +400,7 @@ function initPhotogam() {
         });
     }
     if ($(".fw-carousel2").length > 0) {
-        var j6 = new Swiper(".fw-carousel2 .swiper-container", {
+        var j6 = new Swiper(".fw-carousel2 .swiper-container:not([data-angular-swiper])", {
             preloadImages: true,
             slidesPerView: 'auto',
             freeMode: false,

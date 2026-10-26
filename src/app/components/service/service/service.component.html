@@ -3,7 +3,7 @@
     <div class="content-holder">
         <!-- column-image  -->
         <div class="column-image">
-            <div class="bg"  data-bg="assets/photographer/images/bg/4.jpg"></div>
+            <div class="bg"  data-bg="images/folio/4.jpg"></div>
             <div class="overlay"></div>
             <div class="column-title">
                 <h2>Servicios fotográficos</h2>
@@ -57,7 +57,7 @@
                                 <!-- serv-item -->
                                 <div class="serv-item" *ngFor="let item of filteredServices" style="padding-bottom: 25px;">
                                     <div class="serv-media">
-                                        <img src="{{item.files[0]}}" alt="">
+                                        <img [src]="item.files?.[0]" alt="">
                                     </div>
                                     <div class="serv-text">
                                         <h4><a >{{item.name}}</a></h4>
@@ -104,4 +104,3 @@
     </div>
     <!-- content-holder end -->
 </div>
-

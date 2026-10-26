@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { AboutComponent } from './components/about/about/about.component';
 import { ServiceComponent } from './components/service/service/service.component';
 import { GlobalService } from './services/global.service';
@@ -25,6 +25,7 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
+  isAdminRoute = false;
   title = 'julianpwa';
   gallery: any[] = [];
   menuItems = [
@@ -37,11 +38,16 @@ export class AppComponent implements OnInit {
   constructor(public global: GlobalService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private cdr: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
 
   ) { }
 
   ngOnInit(): void {
+    this.isAdminRoute = this.router.url.startsWith('/admin');
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) this.isAdminRoute = event.urlAfterRedirects.startsWith('/admin');
+    });
     this.global.gallery$.subscribe((gallery : any[]) => {
       this.gallery = gallery;
     });
